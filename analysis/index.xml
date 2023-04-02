@@ -1,0 +1,1759 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet  href="job.xsl" type="text/xsl"?><jobState>
+  <program>
+    <head>
+      <name>PEP-FOLD3</name>
+      <version>3.5</version>
+      <doc>
+        <title>PEP-FOLD</title>
+        <description>
+          <text lang="en">
+          De novo peptide structure prediction. 
+        </text>
+        </description>
+        <comment>
+          <div xmlns="http://www.w3.org/1999/xhtml">
+            <p>PEP-FOLD is a service for the de novo prediction of peptide conformation from amino acid sequence. It is based on a Hidden Markov Model derived Structural Alphabet that describes the conformation of a polypeptidic chain as a series of local overlapping canonical conformations of fragments of 4 amino acids. PEP-FOLD 3 comes with a new 3D engine exploiting HMM sub optimal trajectory sampling that is as efficient as that of PEP-FOLD1 and PEP-FOLD2 for linear peptides, but faster, making possible to open new features.</p>
+            <p>New features are:</p>
+            <ol>
+              <li>Extended peptide size (from 5 to 50 amino acids). </li>
+              <li>Constrained structural sampling (maintaining user specified regions invariant).</li>
+              <li>Folding at protein contact. </li>
+            </ol>
+            <div class="remark">
+              <b>Note:</b> PEP-FOLD3, while faster, does not presently manage disulfide bonds as efficiently as PEP-FOLD2. Please use former PEP-FOLD server to this goal. We remind that for a number of disulfide bond larger than 2, PEP-FOLD shows limited performance.
+          </div>
+          </div>
+        </comment>
+        <authors> Lamiable A, Thévenet P, Rey J, Vavrusa M, Derreumaux P, Tufféry P.</authors>
+        <reference>
+        PEP-FOLD3: faster de novo structure prediction for linear peptides in solution and in complex. Nucleic Acids Res. 2016 Jul 8;44(W1):W449-54.
+      </reference>
+        <doclink>http://bioserv.rpbs.univ-paris-diderot.fr/services/PEP-FOLD3</doclink>
+      </doc>
+      <progressReport>.progress.txt</progressReport>
+      <category>Peptides:Prediction</category>
+      <category>Peptides:Interactions</category>
+      <category>Structure:Prediction:3D_structure</category>
+      <interface type="form" generated="true">
+        <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="InputData">
+          <legend>Input Data</legend>
+          <div>
+            <fieldset class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="iSeq">
+              <legend>Peptide amino acid sequence<a href="#idm140512597944224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              </legend>
+              <div id="idm140512597944224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+              Use this input field to specify the amino acid sequence of the peptide. 
+              It must be in the FASTA format.
+              For more information about the format, please read the sequence format tutorial (Mobyle Tutorials section, on the left).
+              <div class="remark">
+                    <b>Note:</b> Simulated sequence length must be comprised between 5 and 50 amino-acids.
+              </div>
+              Choosing the db item, you can directly select the sequence of a PDB file specifying an identifier on the form: 1dep_A for chain A of the 1dep entry. The chain identifier is mandatory.
+            </div>
+              </div>
+              <textarea name="iSeq" cols="60" rows="7"> </textarea>
+            </fieldset>
+          </div>
+        </fieldset>
+        <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="Options">
+          <legend>Options</legend>
+          <div>
+            <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="PEPFOLD" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="joblabel">Run label<a href="#idm140512597751680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              <input name="joblabel" type="text" value="PEPFOLD"/>
+              <div id="idm140512597751680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+              This label will correspond to the first field of the file names of the run, available for download.
+            </div>
+              </div>
+            </label>
+            <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="100" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nruns">Number of simulations<a href="#idm140512598364768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              <select name="nruns">
+                <option value="100" selected="selected">100</option>
+                <option value="200">200</option>
+              </select>
+              <div id="idm140512598364768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+                Number of independent simulations to be run. 
+            </div>
+                <div>
+                Usually, 100 is enough to get a good idea of peptide candidate conformations. In some cases however, 200 simulations can lead to improvement. 
+            </div>
+              </div>
+            </label>
+            <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="false" data-ismultiple="false" data-default-value="fbt" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="generator">Generator<a href="#idm140512598467472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              <select name="generator">
+                <option value="fbt" selected="selected">fbt</option>
+                <option value="ts4">ts4</option>
+                <option value="ts5">ts5</option>
+              </select>
+              <div id="idm140512598467472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+                Generator in use for the runs. 
+            </div>
+                <div>
+                Usually, the forward backtrack (fbt) is rather good, but taboo-sampling (ts4, ts5) can be a better option for peptides in interaction. ts5 should be used for peptide sizes longer than 10 amino acids. 
+            </div>
+              </div>
+            </label>
+            <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="sOPEP" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="sortkey">Sort models by<a href="#idm140512598529856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              <select name="sortkey">
+                <option value="sOPEP" selected="selected">sOPEP</option>
+                <option value="tm">tm</option>
+              </select>
+              <div id="idm140512598529856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+              Depending on the selected item, clusters will be sorted by:
+              <ul>
+                    <li>
+                      <b>sOPEP:</b> sOPEP energy.</li>
+                    <li>
+                      <b>tm:</b> apollo predicted TM score.</li>
+                  </ul>
+                The best models returned will follow this sort.
+              <div class="remark">
+                    <b>Note:</b> this is not effective for peptide-protein complex generation, where sOPEP ranking only is effective.
+              </div>
+                </div>
+              </div>
+            </label>
+            <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mqa">Perform MQA<a href="#idm140512598442096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              <select name="mqa">
+                <option value="1" selected="selected">Yes</option>
+                <option value="0">No</option>
+              </select>
+              <div id="idm140512598442096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+                If true, then perform the Model Quality Assessment using Apollo.
+            </div>
+              </div>
+            </label>
+            <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="false" data-ismultiple="false" data-default-value="30000" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mcsteps">MonteCarlo steps:<a href="#idm140512597700608::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              <select name="mcsteps">
+                <option value="30000" selected="selected">30000</option>
+                <option value="0">0</option>
+              </select>
+              <div id="idm140512597700608::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+                The number of Monte Carlo steps.
+            </div>
+              </div>
+            </label>
+          </div>
+        </fieldset>
+        <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="Bias">
+          <legend>Bias modeling<a href="#idm140512597252544::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+          </legend>
+          <div id="idm140512597252544::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <div>
+          This section makes possible to bias the modeling by imposing local conformations for parts of the models.
+    Bias is possible either by specifying a reference structure together with a mask indicating the regions of the structure for which the local conformation of this structure will be imposed, or by specifying a mask alone, in which case the local conformation imposed will be that of the optimal prediction from amino acid sequence. 
+        </div>
+          </div>
+          <div>
+            <fieldset class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB " data-parametername="iRef">
+              <legend>Reference structure<a href="#idm140512597322976::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              </legend>
+              <div id="idm140512597322976::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+                Specify here a reference structure (PDB Format). It MUST be the same sequence as the peptide amino acid sequence input (see upper fields). To make this structure taken into account, you have to specify a mask (next parameter), whose sequence must match exactly the sequence of the peptide, but using upper/lower case (see mask help). Depending on the mask, local conformations from this structure will be used to bias modeling. 
+            </div>
+                <div>
+                Choosing the db item and the PDB, you can directly select chains by entering e.g. 1timA for chain A of the 1tim entry. Choosing SCOP, the ids are on the form d1tima_. 
+            </div>
+              </div>
+              <textarea name="iRef" cols="60" rows="7"> </textarea>
+            </fieldset>
+            <fieldset class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="iRefMask">
+              <legend> mask<a href="#idm140512597044752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              </legend>
+              <div id="idm140512597044752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+                Use this input field to specify the residues of the reference structure allowed to change conformation.
+                It must be in the FASTA format. Upper case residues mean residues with conformational flexibility. Lower case residues are for residues for which the reference structure local conformation will be kept. Note PEP-FOLD considers overlapping fragments of 4 residue length. First 4 residues correspond to the first fragment and MUST have the same case. Following residues determine the conformational flexibility of the fragment ending at the position. For more information about the format, please read the PEP-FOLD3 service help. 
+              </div>
+                <div>
+                Choosing the db item, you can directly select the sequence of a PDB file specifying an identifier on the form: 1tim_A for chain A of the 1tim entry. The chain identifier is mandatory.
+              </div>
+              </div>
+              <textarea name="iRefMask" cols="60" rows="7"> </textarea>
+            </fieldset>
+          </div>
+        </fieldset>
+        <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="Receptor">
+          <legend>Protein receptor<a href="#idm140512598410640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+          </legend>
+          <div id="idm140512598410640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <div>
+          This section makes possible to generate candidate peptide-protein complex posed. It requires the specification of a receptor protein structure and of a list of residues of the receptor that are expected to interact with the peptide.
+        </div>
+          </div>
+          <div>
+            <fieldset class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB " data-parametername="iReceptor">
+              <legend>Receptor structure<a href="#idm140512597068640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              </legend>
+              <div id="idm140512597068640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+              Specify here a structure for a receptor (PDB Format). This structure will be used together with the receptor patch definition to generate receptor-peptide complex decoys.
+              <div class="warning">
+                    <b>Important:</b> The residue numbers MUST start at 1 (otherwise PEP-FOLD3 will fail).
+              </div>
+Choosing the db item and the PDB, you can directly select chains by entering e.g. 1timA for chain A of the 1tim entry. Choosing SCOP, the ids are on the form d1tima_. 
+            </div>
+              </div>
+              <textarea name="iReceptor" cols="60" rows="7"> </textarea>
+            </fieldset>
+            <fieldset class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DPatch" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="residues_list">
+              <legend>Residues defining the interaction patch (the residues must be specified ONE per line)<a href="#idm140512597698960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              </legend>
+              <div id="idm140512597698960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+              The residues must be specified ONE per line. Each residues must be represented in the following format that does not contain any white-space or special character, and uses underscore as field delimiter: _CHAIN-ID_RESIDUE-3-LETTERS-CODE _RESIDUE-NUMBER_INSERTION-CODE_.
+              <div class="success">
+                    <b>Example:</b> _A_THR_1__,_A_THR_2__,_A_ILE_7__.
+              </div>
+                  <div class="remark">
+                    <b>Note:</b> Blank chain Ids and blank insertion codes are accepted (and result in double _). Residue numbers are those of the PDB file.
+              </div>
+                </div>
+              </div>
+              <textarea name="residues_list" cols="60" rows="7"> </textarea>
+            </fieldset>
+          </div>
+        </fieldset>
+        <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="Special">
+          <legend>Demonstration Mode</legend>
+          <div>
+            <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="demo">Run the service with preset data<a href="#idm140512597064352::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              <select name="demo">
+                <option value="0" selected="selected">No</option>
+                <option value="1">3D modeling</option>
+                <option value="2">Biased modeling</option>
+                <option value="3">Peptide protein complex</option>
+              </select>
+              <div id="idm140512597064352::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+              These demos provides a quick view of the features of PEP-FOLD3, using a number of conformations limited to only 24 instead of 100 (or 200) for standard runs. Three different facilities are proposed:
+              <ol>
+                    <li>3D modeling from a single peptide sequence: the sequence of the triple helix bundle FAF-1 UBA Domain (PDB 3e21) will be used.</li>
+                    <li>3D modeling specifying local conformation constraints, from a pre-existing 3D model: the sequence of the triple helix bundle FAF-1 UBA Domain (PDB 3e21) will be used.</li>
+                    <li>3D modeling close to a protein receptor: the HAGPIA peptide will be folded on the APO conformation of CYPA given the interacting residues from the complex (PDB: 1AWR).</li>
+                  </ol>
+                </div>
+              </div>
+            </label>
+            <div class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="wmesg_demo">
+              <div class="remark">
+                <b>Note:</b> By selecting an option different from "No", all input parameters entered above will be superseded by data preset to run the selected demonstration.
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </interface>
+      <interface type="job_input" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="InputData">
+          <xhtml:legend>Input Data</xhtml:legend>
+          <xhtml:div>
+            <xhtml:div data-parametername="PEPFOLD" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            <xhtml:div data-parametername="iSeq" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+              <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+              <xhtml:a href="#idm140512597944224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512597944224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              Use this input field to specify the amino acid sequence of the peptide. 
+              It must be in the FASTA format.
+              For more information about the format, please read the sequence format tutorial (Mobyle Tutorials section, on the left).
+              <xhtml:div class="remark">
+                    <xhtml:b>Note:</xhtml:b> Simulated sequence length must be comprised between 5 and 50 amino-acids.
+              </xhtml:div>
+              Choosing the db item, you can directly select the sequence of a PDB file specifying an identifier on the form: 1dep_A for chain A of the 1dep entry. The chain identifier is mandatory.
+            </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+          </xhtml:div>
+        </xhtml:fieldset>
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="Options">
+          <xhtml:legend>Options</xhtml:legend>
+          <xhtml:div>
+            <xhtml:div data-parametername="joblabel" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="PEPFOLD" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+              <xhtml:a href="#idm140512597751680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512597751680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              This label will correspond to the first field of the file names of the run, available for download.
+            </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="nruns" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="100" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+              <xhtml:a href="#idm140512598364768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512598364768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+                Number of independent simulations to be run. 
+            </xhtml:div>
+                <xhtml:div>
+                Usually, 100 is enough to get a good idea of peptide candidate conformations. In some cases however, 200 simulations can lead to improvement. 
+            </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="generator" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="false" data-ismultiple="false" data-default-value="fbt" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+              <xhtml:a href="#idm140512598467472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512598467472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+                Generator in use for the runs. 
+            </xhtml:div>
+                <xhtml:div>
+                Usually, the forward backtrack (fbt) is rather good, but taboo-sampling (ts4, ts5) can be a better option for peptides in interaction. ts5 should be used for peptide sizes longer than 10 amino acids. 
+            </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="sortkey" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="sOPEP" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+              <xhtml:a href="#idm140512598529856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512598529856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              Depending on the selected item, clusters will be sorted by:
+              <xhtml:ul>
+                    <xhtml:li>
+                      <xhtml:b>sOPEP:</xhtml:b> sOPEP energy.</xhtml:li>
+                    <xhtml:li>
+                      <xhtml:b>tm:</xhtml:b> apollo predicted TM score.</xhtml:li>
+                  </xhtml:ul>
+                The best models returned will follow this sort.
+              <xhtml:div class="remark">
+                    <xhtml:b>Note:</xhtml:b> this is not effective for peptide-protein complex generation, where sOPEP ranking only is effective.
+              </xhtml:div>
+                </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="mqa" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+              <xhtml:a href="#idm140512598442096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512598442096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+                If true, then perform the Model Quality Assessment using Apollo.
+            </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="mcsteps" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="false" data-ismultiple="false" data-default-value="30000" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+              <xhtml:a href="#idm140512597700608::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512597700608::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+                The number of Monte Carlo steps.
+            </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+          </xhtml:div>
+        </xhtml:fieldset>
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="Bias">
+          <xhtml:legend>Bias modeling</xhtml:legend>
+          <xhtml:div>
+            <xhtml:div data-parametername="iRef" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB ">
+              <xhtml:i>
+				(Protein _3DStructure)
+			</xhtml:i>
+              <xhtml:a href="#idm140512597322976::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512597322976::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+                Specify here a reference structure (PDB Format). It MUST be the same sequence as the peptide amino acid sequence input (see upper fields). To make this structure taken into account, you have to specify a mask (next parameter), whose sequence must match exactly the sequence of the peptide, but using upper/lower case (see mask help). Depending on the mask, local conformations from this structure will be used to bias modeling. 
+            </xhtml:div>
+                <xhtml:div>
+                Choosing the db item and the PDB, you can directly select chains by entering e.g. 1timA for chain A of the 1tim entry. Choosing SCOP, the ids are on the form d1tima_. 
+            </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="iRefMask" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+              <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+              <xhtml:a href="#idm140512597044752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512597044752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+                Use this input field to specify the residues of the reference structure allowed to change conformation.
+                It must be in the FASTA format. Upper case residues mean residues with conformational flexibility. Lower case residues are for residues for which the reference structure local conformation will be kept. Note PEP-FOLD considers overlapping fragments of 4 residue length. First 4 residues correspond to the first fragment and MUST have the same case. Following residues determine the conformational flexibility of the fragment ending at the position. For more information about the format, please read the PEP-FOLD3 service help. 
+              </xhtml:div>
+                <xhtml:div>
+                Choosing the db item, you can directly select the sequence of a PDB file specifying an identifier on the form: 1tim_A for chain A of the 1tim entry. The chain identifier is mandatory.
+              </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+          </xhtml:div>
+        </xhtml:fieldset>
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="Receptor">
+          <xhtml:legend>Protein receptor</xhtml:legend>
+          <xhtml:div>
+            <xhtml:div data-parametername="iReceptor" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB ">
+              <xhtml:i>
+				(Protein _3DStructure)
+			</xhtml:i>
+              <xhtml:a href="#idm140512597068640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512597068640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              Specify here a structure for a receptor (PDB Format). This structure will be used together with the receptor patch definition to generate receptor-peptide complex decoys.
+              <xhtml:div class="warning">
+                    <xhtml:b>Important:</xhtml:b> The residue numbers MUST start at 1 (otherwise PEP-FOLD3 will fail).
+              </xhtml:div>
+Choosing the db item and the PDB, you can directly select chains by entering e.g. 1timA for chain A of the 1tim entry. Choosing SCOP, the ids are on the form d1tima_. 
+            </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="residues_list" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DPatch" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+              <xhtml:i>
+				(_3DPatch)
+			</xhtml:i>
+              <xhtml:a href="#idm140512597698960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512597698960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              The residues must be specified ONE per line. Each residues must be represented in the following format that does not contain any white-space or special character, and uses underscore as field delimiter: _CHAIN-ID_RESIDUE-3-LETTERS-CODE _RESIDUE-NUMBER_INSERTION-CODE_.
+              <xhtml:div class="success">
+                    <xhtml:b>Example:</xhtml:b> _A_THR_1__,_A_THR_2__,_A_ILE_7__.
+              </xhtml:div>
+                  <xhtml:div class="remark">
+                    <xhtml:b>Note:</xhtml:b> Blank chain Ids and blank insertion codes are accepted (and result in double _). Residue numbers are those of the PDB file.
+              </xhtml:div>
+                </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+          </xhtml:div>
+        </xhtml:fieldset>
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="Special">
+          <xhtml:legend>Demonstration Mode</xhtml:legend>
+          <xhtml:div>
+            <xhtml:div data-parametername="demo" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+              <xhtml:a href="#idm140512597064352::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512597064352::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              These demos provides a quick view of the features of PEP-FOLD3, using a number of conformations limited to only 24 instead of 100 (or 200) for standard runs. Three different facilities are proposed:
+              <xhtml:ol>
+                    <xhtml:li>3D modeling from a single peptide sequence: the sequence of the triple helix bundle FAF-1 UBA Domain (PDB 3e21) will be used.</xhtml:li>
+                    <xhtml:li>3D modeling specifying local conformation constraints, from a pre-existing 3D model: the sequence of the triple helix bundle FAF-1 UBA Domain (PDB 3e21) will be used.</xhtml:li>
+                    <xhtml:li>3D modeling close to a protein receptor: the HAGPIA peptide will be folded on the APO conformation of CYPA given the interacting residues from the complex (PDB: 1AWR).</xhtml:li>
+                  </xhtml:ol>
+                </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="wmesg_demo" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          </xhtml:div>
+        </xhtml:fieldset>
+      </interface>
+      <interface type="job_output" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="Output">
+          <xhtml:legend>Output</xhtml:legend>
+          <xhtml:div>
+            <xhtml:div data-parametername="htmlvisu" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="HTML" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+              <xhtml:i>
+				(HTML)
+			</xhtml:i>
+              <xhtml:a href="#idm140512596783488::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512596783488::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+                    The visualization is based on top of the Protein Viewer (http://biasmv.github.io/pv/).
+              Being JavaScript / WebGL based, the behavior still depends on the browser (but remains largely better than with JAVA based visualizers).
+            </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="htmltable" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="HTML" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+              <xhtml:i>
+				(HTML)
+			</xhtml:i>
+              <xhtml:a href="#idm140512596776192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512596776192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="htmlclusters" style="width:96%; font-size:9pt; border-left:4px solid #cccccc; border-right:4px solid #cccccc; padding: 0 10px 0 10px; text-align:left;">
+              <xhtml:h3>Nota bene</xhtml:h3>
+              <xhtml:p>
+                  To browse the html results page more easily, please click on the <xhtml:b style="color:red;">full screen view</xhtml:b> button. Then you can also save it by using <xhtml:b>File &gt; Save
+                  Page as</xhtml:b> of your web browser.
+                </xhtml:p>
+            </xhtml:div>
+            <xhtml:div data-parametername="model1" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB ">
+              <xhtml:i>
+				(Protein _3DStructure)
+			</xhtml:i>
+              <xhtml:a href="#idm140512596760096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512596760096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              Cluster 1 best conformation (according to sort criterion - see the clustering report)
+            </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="model2" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB ">
+              <xhtml:i>
+				(Protein _3DStructure)
+			</xhtml:i>
+              <xhtml:a href="#idm140512596752032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512596752032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              Cluster 2 best conformation (according to sort criterion - see the clustering report)
+            </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="model3" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB ">
+              <xhtml:i>
+				(Protein _3DStructure)
+			</xhtml:i>
+              <xhtml:a href="#idm140512596743904::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512596743904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              Cluster 3 best conformation (according to sort criterion - see the clustering report)
+            </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="model4" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB ">
+              <xhtml:i>
+				(Protein _3DStructure)
+			</xhtml:i>
+              <xhtml:a href="#idm140512596735776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512596735776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              Cluster 4 best conformation (according to sort criterion - see the clustering report)
+            </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="model5" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB ">
+              <xhtml:i>
+				(Protein _3DStructure)
+			</xhtml:i>
+              <xhtml:a href="#idm140512596727648::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512596727648::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              Cluster 5 best conformation (according to sort criterion - see the clustering report)
+            </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="PPP" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="">
+              <xhtml:a href="#idm140512596551664::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140512596551664::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              Structural alphabet (SA)prediction profile. 
+              The probabilities, at each position of the sequence, of the 27 SA letters are sorted from helical (red), coil (blue) to extended (green).
+              <xhtml:div class="remark">
+                    <xhtml:b>Note:</xhtml:b> SA letters are 4 residue length, so the profile is of the size of the amino acid sequence minus 3.
+              </xhtml:div>
+                </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+          </xhtml:div>
+        </xhtml:fieldset>
+        <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+          <i>
+				(Report)
+			</i>
+        </div>
+        <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+          <i>
+				(Report)
+			</i>
+        </div>
+      </interface>
+    </head>
+    <parameters>
+      <paragraph>
+        <name>InputData</name>
+        <prompt>Input Data</prompt>
+        <parameters>
+          <parameter iscommand="1" ishidden="1">
+            <name>PEPFOLD</name>
+            <prompt>command</prompt>
+            <type>
+              <datatype>
+                <class>String</class>
+              </datatype>
+            </type>
+            <format>
+              <code proglang="python">"python /service/env/PEPFOLD3.5/PEPFOLD3.py"</code>
+            </format>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="PEPFOLD"/>
+            </interface>
+          </parameter>
+          <parameter ismaininput="1" issimple="1">
+            <name>iSeq</name>
+            <prompt lang="en">Peptide amino acid sequence</prompt>
+            <type>
+              <datatype>
+                <class>Sequence</class>
+              </datatype>
+              <dataFormat>FASTA</dataFormat>
+            </type>
+            <format>
+              <code proglang="python">(" -s %s " % str(iSeq), "")[int(int(demo) !=  0)]</code>
+            </format>
+            <comment>
+              <div xmlns="http://www.w3.org/1999/xhtml">
+              Use this input field to specify the amino acid sequence of the peptide. 
+              It must be in the FASTA format.
+              For more information about the format, please read the sequence format tutorial (Mobyle Tutorials section, on the left).
+              <div class="remark">
+                  <b>Note:</b> Simulated sequence length must be comprised between 5 and 50 amino-acids.
+              </div>
+              Choosing the db item, you can directly select the sequence of a PDB file specifying an identifier on the form: 1dep_A for chain A of the 1dep entry. The chain identifier is mandatory.
+            </div>
+            </comment>
+            <ctrl>
+              <message>
+                <text lang="en">You must specify either the demo or input a sequence.</text>
+              </message>
+              <code proglang="python">(iSeq is not None) or (int(demo))</code>
+            </ctrl>
+            <argpos>2</argpos>
+            <interface type="form" generated="true">
+              <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+                <xhtml:legend>Peptide amino acid sequence</xhtml:legend>
+                <xhtml:textarea name="iSeq" cols="60" rows="7"> </xhtml:textarea>
+              </xhtml:fieldset>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="iSeq">
+                <i>
+				(Sequence)
+			</i>
+                <a href="#idm140512597944224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512597944224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              Use this input field to specify the amino acid sequence of the peptide. 
+              It must be in the FASTA format.
+              For more information about the format, please read the sequence format tutorial (Mobyle Tutorials section, on the left).
+              <div class="remark">
+                      <b>Note:</b> Simulated sequence length must be comprised between 5 and 50 amino-acids.
+              </div>
+              Choosing the db item, you can directly select the sequence of a PDB file specifying an identifier on the form: 1dep_A for chain A of the 1dep entry. The chain identifier is mandatory.
+            </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+        </parameters>
+      </paragraph>
+      <paragraph>
+        <name>Options</name>
+        <prompt>Options</prompt>
+        <parameters>
+          <parameter ismandatory="1" issimple="1">
+            <name>joblabel</name>
+            <prompt lang="en">Run label</prompt>
+            <type>
+              <datatype>
+                <class>String</class>
+              </datatype>
+            </type>
+            <vdef>
+              <value>PEPFOLD</value>
+            </vdef>
+            <comment>
+              <text lang="en">
+              This label will correspond to the first field of the file names of the run, available for download.
+            </text>
+            </comment>
+            <format>
+              <code proglang="python">( "", " -l %s " % str(joblabel) )[ value is not None ]</code>
+            </format>
+            <argpos>3</argpos>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Run label<a href="#idm140512597751680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <input name="joblabel" type="text" value="PEPFOLD"/>
+                <div id="idm140512597751680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              This label will correspond to the first field of the file names of the run, available for download.
+            </div>
+                </div>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="PEPFOLD" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="joblabel">
+                <a href="#idm140512597751680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512597751680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              This label will correspond to the first field of the file names of the run, available for download.
+            </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter ismandatory="1" issimple="1">
+            <name>nruns</name>
+            <prompt lang="en">Number of simulations</prompt>
+            <type>
+              <datatype>
+                <class>Choice</class>
+              </datatype>
+            </type>
+            <vdef>
+              <value>100</value>
+            </vdef>
+            <vlist>
+              <velem>
+                <value>100</value>
+                <label>100</label>
+              </velem>
+              <velem>
+                <value>200</value>
+                <label>200</label>
+              </velem>
+            </vlist>
+            <format>
+              <code proglang="python">" --nRuns %s " % value</code>
+            </format>
+            <comment>
+              <text lang="en">
+                Number of independent simulations to be run. 
+            </text>
+              <text lang="en">
+                Usually, 100 is enough to get a good idea of peptide candidate conformations. In some cases however, 200 simulations can lead to improvement. 
+            </text>
+            </comment>
+            <argpos>4</argpos>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of simulations<a href="#idm140512598364768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <select name="nruns">
+                  <option value="100" selected="selected">100</option>
+                  <option value="200">200</option>
+                </select>
+                <div id="idm140512598364768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                Number of independent simulations to be run. 
+            </div>
+                  <div>
+                Usually, 100 is enough to get a good idea of peptide candidate conformations. In some cases however, 200 simulations can lead to improvement. 
+            </div>
+                </div>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="100" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nruns">
+                <a href="#idm140512598364768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512598364768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                Number of independent simulations to be run. 
+            </div>
+                  <div>
+                Usually, 100 is enough to get a good idea of peptide candidate conformations. In some cases however, 200 simulations can lead to improvement. 
+            </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <!-- <parameter ishidden="1" ismandatory="1" issimple="1"> -->
+          <parameter ismandatory="1">
+            <name>generator</name>
+            <prompt lang="en">Generator</prompt>
+            <type>
+              <datatype>
+                <class>Choice</class>
+              </datatype>
+            </type>
+            <vdef>
+              <value>fbt</value>
+            </vdef>
+            <vlist>
+              <velem>
+                <value>fbt</value>
+                <label>fbt</label>
+              </velem>
+              <velem>
+                <value>ts4</value>
+                <label>ts4</label>
+              </velem>
+              <velem>
+                <value>ts5</value>
+                <label>ts5</label>
+              </velem>
+            </vlist>
+            <format>
+              <code proglang="python">" --generator %s " % value</code>
+            </format>
+            <comment>
+              <text lang="en">
+                Generator in use for the runs. 
+            </text>
+              <text lang="en">
+                Usually, the forward backtrack (fbt) is rather good, but taboo-sampling (ts4, ts5) can be a better option for peptides in interaction. ts5 should be used for peptide sizes longer than 10 amino acids. 
+            </text>
+            </comment>
+            <argpos>5</argpos>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Generator<a href="#idm140512598467472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <select name="generator">
+                  <option value="fbt" selected="selected">fbt</option>
+                  <option value="ts4">ts4</option>
+                  <option value="ts5">ts5</option>
+                </select>
+                <div id="idm140512598467472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                Generator in use for the runs. 
+            </div>
+                  <div>
+                Usually, the forward backtrack (fbt) is rather good, but taboo-sampling (ts4, ts5) can be a better option for peptides in interaction. ts5 should be used for peptide sizes longer than 10 amino acids. 
+            </div>
+                </div>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="false" data-ismultiple="false" data-default-value="fbt" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="generator">
+                <a href="#idm140512598467472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512598467472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                Generator in use for the runs. 
+            </div>
+                  <div>
+                Usually, the forward backtrack (fbt) is rather good, but taboo-sampling (ts4, ts5) can be a better option for peptides in interaction. ts5 should be used for peptide sizes longer than 10 amino acids. 
+            </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter ismandatory="1" issimple="1">
+            <name>sortkey</name>
+            <prompt lang="en">Sort models by</prompt>
+            <type>
+              <datatype>
+                <class>Choice</class>
+              </datatype>
+            </type>
+            <vdef>
+              <value>sOPEP</value>
+            </vdef>
+            <vlist>
+              <velem>
+                <value>sOPEP</value>
+                <label>sOPEP</label>
+              </velem>
+              <velem>
+                <value>tm</value>
+                <label>tm</label>
+              </velem>
+            </vlist>
+            <format>
+              <code proglang="python">" --sortKey %s " % value</code>
+            </format>
+            <comment>
+              <div xmlns="http://www.w3.org/1999/xhtml">
+              Depending on the selected item, clusters will be sorted by:
+              <ul>
+                  <li>
+                    <b>sOPEP:</b> sOPEP energy.</li>
+                  <li>
+                    <b>tm:</b> apollo predicted TM score.</li>
+                </ul>
+                The best models returned will follow this sort.
+              <div class="remark">
+                  <b>Note:</b> this is not effective for peptide-protein complex generation, where sOPEP ranking only is effective.
+              </div>
+              </div>
+            </comment>
+            <argpos>6</argpos>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Sort models by<a href="#idm140512598529856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <select name="sortkey">
+                  <option value="sOPEP" selected="selected">sOPEP</option>
+                  <option value="tm">tm</option>
+                </select>
+                <div id="idm140512598529856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              Depending on the selected item, clusters will be sorted by:
+              <ul>
+                      <li>
+                        <b>sOPEP:</b> sOPEP energy.</li>
+                      <li>
+                        <b>tm:</b> apollo predicted TM score.</li>
+                    </ul>
+                The best models returned will follow this sort.
+              <div class="remark">
+                      <b>Note:</b> this is not effective for peptide-protein complex generation, where sOPEP ranking only is effective.
+              </div>
+                  </div>
+                </div>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="sOPEP" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="sortkey">
+                <a href="#idm140512598529856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512598529856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              Depending on the selected item, clusters will be sorted by:
+              <ul>
+                      <li>
+                        <b>sOPEP:</b> sOPEP energy.</li>
+                      <li>
+                        <b>tm:</b> apollo predicted TM score.</li>
+                    </ul>
+                The best models returned will follow this sort.
+              <div class="remark">
+                      <b>Note:</b> this is not effective for peptide-protein complex generation, where sOPEP ranking only is effective.
+              </div>
+                  </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter ismandatory="1">
+            <name>mqa</name>
+            <prompt lang="en">Perform MQA</prompt>
+            <comment>
+              <text lang="en">
+                If true, then perform the Model Quality Assessment using Apollo.
+            </text>
+            </comment>
+            <type>
+              <datatype>
+                <class>Boolean</class>
+              </datatype>
+            </type>
+            <vdef>
+              <value>1</value>
+            </vdef>
+            <format>
+              <code proglang="python">( " --noMQA --sortKey sOPEP " , "" )[ value ]</code>
+            </format>
+            <argpos>8</argpos>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Perform MQA<a href="#idm140512598442096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <select name="mqa">
+                  <option value="1" selected="selected">Yes</option>
+                  <option value="0">No</option>
+                </select>
+                <div id="idm140512598442096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                If true, then perform the Model Quality Assessment using Apollo.
+            </div>
+                </div>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mqa">
+                <a href="#idm140512598442096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512598442096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                If true, then perform the Model Quality Assessment using Apollo.
+            </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter ismandatory="1">
+            <name>mcsteps</name>
+            <prompt lang="en">MonteCarlo steps:</prompt>
+            <comment>
+              <text lang="en">
+                The number of Monte Carlo steps.
+            </text>
+            </comment>
+            <type>
+              <datatype>
+                <class>Choice</class>
+              </datatype>
+            </type>
+            <vdef>
+              <value>30000</value>
+            </vdef>
+            <vlist>
+              <velem>
+                <value>30000</value>
+                <label>30000</label>
+              </velem>
+              <velem>
+                <value>0</value>
+                <label>0</label>
+              </velem>
+            </vlist>
+            <format>
+              <code proglang="python">" --mcSteps %s " % value</code>
+            </format>
+            <argpos>8</argpos>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">MonteCarlo steps:<a href="#idm140512597700608::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <select name="mcsteps">
+                  <option value="30000" selected="selected">30000</option>
+                  <option value="0">0</option>
+                </select>
+                <div id="idm140512597700608::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                The number of Monte Carlo steps.
+            </div>
+                </div>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="false" data-ismultiple="false" data-default-value="30000" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mcsteps">
+                <a href="#idm140512597700608::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512597700608::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                The number of Monte Carlo steps.
+            </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+        </parameters>
+      </paragraph>
+      <paragraph>
+        <name>Bias</name>
+        <prompt>Bias modeling</prompt>
+        <comment>
+          <text lang="en">
+          This section makes possible to bias the modeling by imposing local conformations for parts of the models.
+    Bias is possible either by specifying a reference structure together with a mask indicating the regions of the structure for which the local conformation of this structure will be imposed, or by specifying a mask alone, in which case the local conformation imposed will be that of the optimal prediction from amino acid sequence. 
+        </text>
+        </comment>
+        <parameters>
+          <parameter issimple="1">
+            <name>iRef</name>
+            <prompt lang="en">Reference structure</prompt>
+            <type>
+              <biotype>Protein</biotype>
+              <datatype>
+                <class>_3DStructure</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+              <dataFormat>PDB</dataFormat>
+            </type>
+            <format>
+              <code proglang="python">( "", " --shake_model "+str(iRef) )[ (value is not None) and (iRefMask is not None) ]</code>
+            </format>
+            <comment>
+              <text lang="en">
+                Specify here a reference structure (PDB Format). It MUST be the same sequence as the peptide amino acid sequence input (see upper fields). To make this structure taken into account, you have to specify a mask (next parameter), whose sequence must match exactly the sequence of the peptide, but using upper/lower case (see mask help). Depending on the mask, local conformations from this structure will be used to bias modeling. 
+            </text>
+              <text lang="en">
+                Choosing the db item and the PDB, you can directly select chains by entering e.g. 1timA for chain A of the 1tim entry. Choosing SCOP, the ids are on the form d1tima_. 
+            </text>
+            </comment>
+            <argpos>10</argpos>
+            <interface type="form" generated="true">
+              <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+                <xhtml:legend>Reference structure</xhtml:legend>
+                <xhtml:textarea name="iRef" cols="60" rows="7"> </xhtml:textarea>
+              </xhtml:fieldset>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB " data-parametername="iRef">
+                <i>
+				(Protein _3DStructure)
+			</i>
+                <a href="#idm140512597322976::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512597322976::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                Specify here a reference structure (PDB Format). It MUST be the same sequence as the peptide amino acid sequence input (see upper fields). To make this structure taken into account, you have to specify a mask (next parameter), whose sequence must match exactly the sequence of the peptide, but using upper/lower case (see mask help). Depending on the mask, local conformations from this structure will be used to bias modeling. 
+            </div>
+                  <div>
+                Choosing the db item and the PDB, you can directly select chains by entering e.g. 1timA for chain A of the 1tim entry. Choosing SCOP, the ids are on the form d1tima_. 
+            </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter issimple="1">
+            <name>iRefMask</name>
+            <prompt lang="en"> mask</prompt>
+            <type>
+              <datatype>
+                <class>Sequence</class>
+              </datatype>
+              <dataFormat>FASTA</dataFormat>
+            </type>
+            <format>
+              <code proglang="python">( ("", " --shake_mask %s " % str(iRefMask) ) [ (value is not None) ], "")[int(int(demo) !=  0)]</code>
+            </format>
+            <comment>
+              <text lang="en">
+                Use this input field to specify the residues of the reference structure allowed to change conformation.
+                It must be in the FASTA format. Upper case residues mean residues with conformational flexibility. Lower case residues are for residues for which the reference structure local conformation will be kept. Note PEP-FOLD considers overlapping fragments of 4 residue length. First 4 residues correspond to the first fragment and MUST have the same case. Following residues determine the conformational flexibility of the fragment ending at the position. For more information about the format, please read the PEP-FOLD3 service help. 
+              </text>
+              <text lang="en">
+                Choosing the db item, you can directly select the sequence of a PDB file specifying an identifier on the form: 1tim_A for chain A of the 1tim entry. The chain identifier is mandatory.
+              </text>
+            </comment>
+            <argpos>11</argpos>
+            <interface type="form" generated="true">
+              <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+                <xhtml:legend> mask</xhtml:legend>
+                <xhtml:textarea name="iRefMask" cols="60" rows="7"> </xhtml:textarea>
+              </xhtml:fieldset>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="iRefMask">
+                <i>
+				(Sequence)
+			</i>
+                <a href="#idm140512597044752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512597044752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                Use this input field to specify the residues of the reference structure allowed to change conformation.
+                It must be in the FASTA format. Upper case residues mean residues with conformational flexibility. Lower case residues are for residues for which the reference structure local conformation will be kept. Note PEP-FOLD considers overlapping fragments of 4 residue length. First 4 residues correspond to the first fragment and MUST have the same case. Following residues determine the conformational flexibility of the fragment ending at the position. For more information about the format, please read the PEP-FOLD3 service help. 
+              </div>
+                  <div>
+                Choosing the db item, you can directly select the sequence of a PDB file specifying an identifier on the form: 1tim_A for chain A of the 1tim entry. The chain identifier is mandatory.
+              </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+        </parameters>
+      </paragraph>
+      <paragraph>
+        <name>Receptor</name>
+        <prompt>Protein receptor</prompt>
+        <comment>
+          <text lang="en">
+          This section makes possible to generate candidate peptide-protein complex posed. It requires the specification of a receptor protein structure and of a list of residues of the receptor that are expected to interact with the peptide.
+        </text>
+        </comment>
+        <parameters>
+          <parameter issimple="1">
+            <name>iReceptor</name>
+            <prompt lang="en">Receptor structure</prompt>
+            <type>
+              <biotype>Protein</biotype>
+              <datatype>
+                <class>_3DStructure</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+              <dataFormat>PDB</dataFormat>
+            </type>
+            <format>
+              <code proglang="python">( "", " --receptor "+str(iReceptor) )[ value is not None ]</code>
+            </format>
+            <comment>
+              <div xmlns="http://www.w3.org/1999/xhtml">
+              Specify here a structure for a receptor (PDB Format). This structure will be used together with the receptor patch definition to generate receptor-peptide complex decoys.
+              <div class="warning">
+                  <b>Important:</b> The residue numbers MUST start at 1 (otherwise PEP-FOLD3 will fail).
+              </div>
+Choosing the db item and the PDB, you can directly select chains by entering e.g. 1timA for chain A of the 1tim entry. Choosing SCOP, the ids are on the form d1tima_. 
+            </div>
+            </comment>
+            <argpos>21</argpos>
+            <interface type="form" generated="true">
+              <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+                <xhtml:legend>Receptor structure</xhtml:legend>
+                <xhtml:textarea name="iReceptor" cols="60" rows="7"> </xhtml:textarea>
+              </xhtml:fieldset>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB " data-parametername="iReceptor">
+                <i>
+				(Protein _3DStructure)
+			</i>
+                <a href="#idm140512597068640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512597068640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              Specify here a structure for a receptor (PDB Format). This structure will be used together with the receptor patch definition to generate receptor-peptide complex decoys.
+              <div class="warning">
+                      <b>Important:</b> The residue numbers MUST start at 1 (otherwise PEP-FOLD3 will fail).
+              </div>
+Choosing the db item and the PDB, you can directly select chains by entering e.g. 1timA for chain A of the 1tim entry. Choosing SCOP, the ids are on the form d1tima_. 
+            </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter issimple="1">
+            <name>residues_list</name>
+            <prompt lang="en">Residues defining the interaction patch (the residues must be specified ONE per line)</prompt>
+            <comment>
+              <div xmlns="http://www.w3.org/1999/xhtml">
+              The residues must be specified ONE per line. Each residues must be represented in the following format that does not contain any white-space or special character, and uses underscore as field delimiter: _CHAIN-ID_RESIDUE-3-LETTERS-CODE _RESIDUE-NUMBER_INSERTION-CODE_.
+              <div class="success">
+                  <b>Example:</b> _A_THR_1__,_A_THR_2__,_A_ILE_7__.
+              </div>
+                <div class="remark">
+                  <b>Note:</b> Blank chain Ids and blank insertion codes are accepted (and result in double _). Residue numbers are those of the PDB file.
+              </div>
+              </div>
+            </comment>
+            <type>
+              <datatype>
+                <class>_3DPatch</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+            </type>
+            <!-- <type> -->
+            <!--   <datatype> -->
+            <!--     <class>String</class> -->
+            <!--   </datatype> -->
+            <!-- </type> -->
+            <format>
+              <code proglang="python">("", " --receptor_patch " + str(residues_list) + "")[residues_list is not None]</code>
+            </format>
+            <argpos>22</argpos>
+            <interface type="form" generated="true">
+              <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+                <xhtml:legend>Residues defining the interaction patch (the residues must be specified ONE per line)</xhtml:legend>
+                <xhtml:textarea name="residues_list" cols="60" rows="7"> </xhtml:textarea>
+              </xhtml:fieldset>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DPatch" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="residues_list">
+                <i>
+				(_3DPatch)
+			</i>
+                <a href="#idm140512597698960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512597698960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              The residues must be specified ONE per line. Each residues must be represented in the following format that does not contain any white-space or special character, and uses underscore as field delimiter: _CHAIN-ID_RESIDUE-3-LETTERS-CODE _RESIDUE-NUMBER_INSERTION-CODE_.
+              <div class="success">
+                      <b>Example:</b> _A_THR_1__,_A_THR_2__,_A_ILE_7__.
+              </div>
+                    <div class="remark">
+                      <b>Note:</b> Blank chain Ids and blank insertion codes are accepted (and result in double _). Residue numbers are those of the PDB file.
+              </div>
+                  </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+        </parameters>
+      </paragraph>
+      <paragraph>
+        <name>Special</name>
+        <prompt>Demonstration Mode</prompt>
+        <parameters>
+          <parameter ismandatory="1" issimple="1">
+            <name>demo</name>
+            <prompt lang="en">Run the service with preset data</prompt>
+            <comment>
+              <div xmlns="http://www.w3.org/1999/xhtml">
+              These demos provides a quick view of the features of PEP-FOLD3, using a number of conformations limited to only 24 instead of 100 (or 200) for standard runs. Three different facilities are proposed:
+              <ol>
+                  <li>3D modeling from a single peptide sequence: the sequence of the triple helix bundle FAF-1 UBA Domain (PDB 3e21) will be used.</li>
+                  <li>3D modeling specifying local conformation constraints, from a pre-existing 3D model: the sequence of the triple helix bundle FAF-1 UBA Domain (PDB 3e21) will be used.</li>
+                  <li>3D modeling close to a protein receptor: the HAGPIA peptide will be folded on the APO conformation of CYPA given the interacting residues from the complex (PDB: 1AWR).</li>
+                </ol>
+              </div>
+            </comment>
+            <type>
+              <datatype>
+                <class>Choice</class>
+              </datatype>
+            </type>
+            <vdef>
+              <value>0</value>
+            </vdef>
+            <vlist>
+              <velem>
+                <value>0</value>
+                <label>No</label>
+              </velem>
+              <velem>
+                <value>1</value>
+                <label>3D modeling</label>
+              </velem>
+              <velem>
+                <value>2</value>
+                <label>Biased modeling</label>
+              </velem>
+              <velem>
+                <value>3</value>
+                <label>Peptide protein complex</label>
+              </velem>
+            </vlist>
+            <format>
+              <code proglang="python">( "" , " --demo ", " --demo_shake " , " --demo_complex " )[ int(value) ]</code>
+            </format>
+            <argpos>1</argpos>
+            <ctrl>
+              <message>
+                <text lang="en">You must specify either the demo or input a sequence.</text>
+              </message>
+              <code proglang="python">((iSeq is not None) or (int(demo)))</code>
+            </ctrl>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Run the service with preset data<a href="#idm140512597064352::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <select name="demo">
+                  <option value="0" selected="selected">No</option>
+                  <option value="1">3D modeling</option>
+                  <option value="2">Biased modeling</option>
+                  <option value="3">Peptide protein complex</option>
+                </select>
+                <div id="idm140512597064352::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              These demos provides a quick view of the features of PEP-FOLD3, using a number of conformations limited to only 24 instead of 100 (or 200) for standard runs. Three different facilities are proposed:
+              <ol>
+                      <li>3D modeling from a single peptide sequence: the sequence of the triple helix bundle FAF-1 UBA Domain (PDB 3e21) will be used.</li>
+                      <li>3D modeling specifying local conformation constraints, from a pre-existing 3D model: the sequence of the triple helix bundle FAF-1 UBA Domain (PDB 3e21) will be used.</li>
+                      <li>3D modeling close to a protein receptor: the HAGPIA peptide will be folded on the APO conformation of CYPA given the interacting residues from the complex (PDB: 1AWR).</li>
+                    </ol>
+                  </div>
+                </div>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="demo">
+                <a href="#idm140512597064352::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512597064352::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              These demos provides a quick view of the features of PEP-FOLD3, using a number of conformations limited to only 24 instead of 100 (or 200) for standard runs. Three different facilities are proposed:
+              <ol>
+                      <li>3D modeling from a single peptide sequence: the sequence of the triple helix bundle FAF-1 UBA Domain (PDB 3e21) will be used.</li>
+                      <li>3D modeling specifying local conformation constraints, from a pre-existing 3D model: the sequence of the triple helix bundle FAF-1 UBA Domain (PDB 3e21) will be used.</li>
+                      <li>3D modeling close to a protein receptor: the HAGPIA peptide will be folded on the APO conformation of CYPA given the interacting residues from the complex (PDB: 1AWR).</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter issimple="1">
+            <name>wmesg_demo</name>
+            <prompt lang="en"/>
+            <type>
+              <datatype>
+                <class>String</class>
+              </datatype>
+            </type>
+            <format>
+              <code proglang="perl">" "</code>
+              <code proglang="python">" "</code>
+            </format>
+            <interface type="form">
+              <div xmlns="http://www.w3.org/1999/xhtml">
+                <div class="remark">
+                  <b>Note:</b> By selecting an option different from "No", all input parameters entered above will be superseded by data preset to run the selected demonstration.
+              </div>
+              </div>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="wmesg_demo"/>
+            </interface>
+          </parameter>
+        </parameters>
+      </paragraph>
+      <paragraph>
+        <name>Output</name>
+        <prompt>Output</prompt>
+        <parameters>
+          <parameter isout="1">
+            <name>htmlvisu</name>
+            <prompt lang="en">Visualize the best models</prompt>
+            <type>
+              <datatype>
+                <class>HTML</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+            </type>
+            <filenames>
+              <code proglang="python">"bestModels.html"</code>
+            </filenames>
+            <comment>
+              <text lang="en">
+                    The visualization is based on top of the Protein Viewer (http://biasmv.github.io/pv/).
+              Being JavaScript / WebGL based, the behavior still depends on the browser (but remains largely better than with JAVA based visualizers).
+            </text>
+            </comment>
+            <interface generated="true" type="job_output">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="HTML" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="htmlvisu">
+                <i>
+				(HTML)
+			</i>
+                <a href="#idm140512596783488::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512596783488::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                    The visualization is based on top of the Protein Viewer (http://biasmv.github.io/pv/).
+              Being JavaScript / WebGL based, the behavior still depends on the browser (but remains largely better than with JAVA based visualizers).
+            </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter isout="1">
+            <name>htmltable</name>
+            <prompt lang="en">Visualize the best models</prompt>
+            <type>
+              <datatype>
+                <class>HTML</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+            </type>
+            <filenames>
+              <code proglang="python">"clusters.html"</code>
+            </filenames>
+            <comment>
+          </comment>
+            <interface generated="true" type="job_output">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="HTML" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="htmltable">
+                <i>
+				(HTML)
+			</i>
+                <a href="#idm140512596776192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512596776192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter isout="1">
+            <name>htmlclusters</name>
+            <prompt lang="en">Clusters</prompt>
+            <type>
+              <datatype>
+                <class>PEPFOLDHTMLClusterReport</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+            </type>
+            <interface type="job_output">
+              <div xmlns="http://www.w3.org/1999/xhtml" style="width:96%; font-size:9pt; border-left:4px solid #cccccc; border-right:4px solid #cccccc; padding: 0 10px 0 10px; text-align:left;">
+                <h3>Nota bene</h3>
+                <p>
+                  To browse the html results page more easily, please click on the <b style="color:red;">full screen view</b> button. Then you can also save it by using <b>File &gt; Save
+                  Page as</b> of your web browser.
+                </p>
+              </div>
+            </interface>
+            <filenames>
+              <code proglang="python">"clusters.html"</code>
+            </filenames>
+            <comment>
+              <text lang="en">
+              View the cluster scores and access to model download.
+            </text>
+            </comment>
+          </parameter>
+          <parameter isout="1">
+            <name>model1</name>
+            <prompt lang="en">Model 1</prompt>
+            <type>
+              <biotype>Protein</biotype>
+              <datatype>
+                <class>_3DStructure</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+              <dataFormat>PDB</dataFormat>
+            </type>
+            <filenames>
+              <code proglang="python">"model1.pdb"</code>
+            </filenames>
+            <comment>
+              <text lang="en">
+              Cluster 1 best conformation (according to sort criterion - see the clustering report)
+            </text>
+            </comment>
+            <interface generated="true" type="job_output">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB " data-parametername="model1">
+                <i>
+				(Protein _3DStructure)
+			</i>
+                <a href="#idm140512596760096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512596760096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              Cluster 1 best conformation (according to sort criterion - see the clustering report)
+            </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter isout="1">
+            <name>model2</name>
+            <prompt lang="en">Model 2</prompt>
+            <type>
+              <biotype>Protein</biotype>
+              <datatype>
+                <class>_3DStructure</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+              <dataFormat>PDB</dataFormat>
+            </type>
+            <filenames>
+              <code proglang="python">"model2.pdb"</code>
+            </filenames>
+            <comment>
+              <text lang="en">
+              Cluster 2 best conformation (according to sort criterion - see the clustering report)
+            </text>
+            </comment>
+            <interface generated="true" type="job_output">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB " data-parametername="model2">
+                <i>
+				(Protein _3DStructure)
+			</i>
+                <a href="#idm140512596752032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512596752032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              Cluster 2 best conformation (according to sort criterion - see the clustering report)
+            </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter isout="1">
+            <name>model3</name>
+            <prompt lang="en">Model 3</prompt>
+            <type>
+              <biotype>Protein</biotype>
+              <datatype>
+                <class>_3DStructure</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+              <dataFormat>PDB</dataFormat>
+            </type>
+            <filenames>
+              <code proglang="python">"model3.pdb"</code>
+            </filenames>
+            <comment>
+              <text lang="en">
+              Cluster 3 best conformation (according to sort criterion - see the clustering report)
+            </text>
+            </comment>
+            <interface generated="true" type="job_output">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB " data-parametername="model3">
+                <i>
+				(Protein _3DStructure)
+			</i>
+                <a href="#idm140512596743904::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512596743904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              Cluster 3 best conformation (according to sort criterion - see the clustering report)
+            </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter isout="1">
+            <name>model4</name>
+            <prompt lang="en">Model 4</prompt>
+            <type>
+              <biotype>Protein</biotype>
+              <datatype>
+                <class>_3DStructure</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+              <dataFormat>PDB</dataFormat>
+            </type>
+            <filenames>
+              <code proglang="python">"model4.pdb"</code>
+            </filenames>
+            <comment>
+              <text lang="en">
+              Cluster 4 best conformation (according to sort criterion - see the clustering report)
+            </text>
+            </comment>
+            <interface generated="true" type="job_output">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB " data-parametername="model4">
+                <i>
+				(Protein _3DStructure)
+			</i>
+                <a href="#idm140512596735776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512596735776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              Cluster 4 best conformation (according to sort criterion - see the clustering report)
+            </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter isout="1">
+            <name>model5</name>
+            <prompt lang="en">Model 5</prompt>
+            <type>
+              <biotype>Protein</biotype>
+              <datatype>
+                <class>_3DStructure</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+              <dataFormat>PDB</dataFormat>
+            </type>
+            <filenames>
+              <code proglang="python">"model5.pdb"</code>
+            </filenames>
+            <comment>
+              <text lang="en">
+              Cluster 5 best conformation (according to sort criterion - see the clustering report)
+            </text>
+            </comment>
+            <interface generated="true" type="job_output">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB " data-parametername="model5">
+                <i>
+				(Protein _3DStructure)
+			</i>
+                <a href="#idm140512596727648::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512596727648::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              Cluster 5 best conformation (according to sort criterion - see the clustering report)
+            </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter isout="1">
+            <name>PPP</name>
+            <prompt lang="en">Predicted Local Structure Profile</prompt>
+            <type>
+              <datatype>
+                <class>Picture</class>
+                <superclass>Binary</superclass>
+              </datatype>
+            </type>
+            <filenames>
+              <code proglang="python">"*.svmi8.27.prob.probplot.27.png"</code>
+            </filenames>
+            <comment>
+              <div xmlns="http://www.w3.org/1999/xhtml">
+              Structural alphabet (SA)prediction profile. 
+              The probabilities, at each position of the sequence, of the 27 SA letters are sorted from helical (red), coil (blue) to extended (green).
+              <div class="remark">
+                  <b>Note:</b> SA letters are 4 residue length, so the profile is of the size of the amino acid sequence minus 3.
+              </div>
+              </div>
+            </comment>
+            <interface generated="true" type="job_output">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="PPP">
+                <a href="#idm140512596551664::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140512596551664::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+              Structural alphabet (SA)prediction profile. 
+              The probabilities, at each position of the sequence, of the 27 SA letters are sorted from helical (red), coil (blue) to extended (green).
+              <div class="remark">
+                      <b>Note:</b> SA letters are 4 residue length, so the profile is of the size of the amino acid sequence minus 3.
+              </div>
+                  </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+        </parameters>
+      </paragraph>
+      <parameter isstdout="true">
+        <name>stdout</name>
+        <prompt>Standard output</prompt>
+        <type>
+          <datatype>
+            <class>Report</class>
+          </datatype>
+        </type>
+        <filenames>
+          <code proglang="perl">"PEP-FOLD3.out"</code>
+          <code proglang="python">"PEP-FOLD3.out"</code>
+        </filenames>
+        <interface generated="true" type="job_output">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+            <i>
+				(Report)
+			</i>
+          </div>
+        </interface>
+      </parameter>
+      <parameter isout="true">
+        <name>stderr</name>
+        <prompt>Standard error</prompt>
+        <type>
+          <datatype>
+            <class>Report</class>
+          </datatype>
+        </type>
+        <filenames>
+          <code proglang="perl">"PEP-FOLD3.err"</code>
+          <code proglang="python">"PEP-FOLD3.err"</code>
+        </filenames>
+        <interface generated="true" type="job_output">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+            <i>
+				(Report)
+			</i>
+          </div>
+        </interface>
+      </parameter>
+    </parameters>
+  </program>
+  <name>https://mobyle.rpbs.univ-paris-diderot.fr/data/services/servers/local/programs/PEP-FOLD3.xml</name>
+  <host>https://mobyle.rpbs.univ-paris-diderot.fr</host>
+  <id>https://mobyle.rpbs.univ-paris-diderot.fr/data/jobs/PEP-FOLD3/E16386948539019</id>
+  <date>06/24/20  06:15:48</date>
+  <email>akshay@chemical.iitd.ac.in</email>
+  <sessionKey>1db476b93e0ddc938a26d4b4bcb22525</sessionKey>
+  <data>
+    <input>
+      <parameter>
+        <name>iSeq</name>
+      </parameter>
+      <file>
+        <raw fmt="FASTA" size="19">iSeq.fasta</raw>
+        <fmtProgram>squizz</fmtProgram>
+      </file>
+    </input>
+    <input>
+      <parameter>
+        <name>joblabel</name>
+      </parameter>
+      <value>32comp</value>
+    </input>
+    <input>
+      <parameter>
+        <name>iReceptor</name>
+      </parameter>
+      <file>
+        <raw fmt="not detected" size="88473">nsp7_4342.pdb</raw>
+      </file>
+    </input>
+    <input>
+      <parameter>
+        <name>residues_list</name>
+      </parameter>
+      <file>
+        <raw fmt="not detected" size="234">residues_list.data</raw>
+      </file>
+    </input>
+    <output>
+      <parameter>
+        <name>htmlclusters</name>
+      </parameter>
+      <file size="14387">clusters.html</file>
+    </output>
+    <output>
+      <parameter>
+        <name>model3</name>
+      </parameter>
+      <file size="49741">model3.pdb</file>
+    </output>
+    <output>
+      <parameter>
+        <name>model2</name>
+      </parameter>
+      <file size="49742">model2.pdb</file>
+    </output>
+    <output>
+      <parameter>
+        <name>model1</name>
+      </parameter>
+      <file size="49742">model1.pdb</file>
+    </output>
+    <output>
+      <parameter>
+        <name>model5</name>
+      </parameter>
+      <file size="49742">model5.pdb</file>
+    </output>
+    <output>
+      <parameter>
+        <name>model4</name>
+      </parameter>
+      <file size="49742">model4.pdb</file>
+    </output>
+    <output>
+      <parameter>
+        <name>PPP</name>
+      </parameter>
+      <file size="9393">32comp.svmi8.27.prob.probplot.27.png</file>
+    </output>
+    <output>
+      <parameter>
+        <name>htmlvisu</name>
+      </parameter>
+      <file size="11281">bestModels.html</file>
+    </output>
+    <output>
+      <parameter>
+        <name>stderr</name>
+      </parameter>
+      <file size="2293">PEP-FOLD3.err</file>
+    </output>
+    <output>
+      <parameter>
+        <name>htmltable</name>
+      </parameter>
+      <file size="14387">clusters.html</file>
+    </output>
+  </data>
+  <commandLine>python /service/env/PEPFOLD3.5/PEPFOLD3.py -s iSeq.fasta -l 32comp --nRuns 100 --generator fbt --sortKey sOPEP --mcSteps 30000 --receptor nsp7_4342.pdb --receptor_patch residues_list.data</commandLine>
+  <status>
+    <value>finished</value>
+    <message/>
+  </status>
+</jobState>
